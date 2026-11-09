@@ -14,25 +14,6 @@ with threshold cryptography + verifiable ordering proofs.
 
 </div>
 
----
-
-## Table of Contents
-
-- [The Problem](#the-problem)
-- [What OpenSequencer Does](#what-opensequencer-does)
-- [How It Works](#how-it-works)
-- [Guarantees & Threat Model](#guarantees--threat-model)
-- [Architecture](#architecture)
-- [Quick Start](#quick-start)
-- [Integration Guides](#integration-guides)
-- [Benchmark Results](#benchmark-results)
-- [Comparison with Prior Work](#comparison-with-prior-work)
-- [Project Status & Roadmap](#project-status--roadmap)
-- [Contributing](#contributing)
-- [Security](#security)
-- [License](#license)
-
----
 
 ## The Problem
 
