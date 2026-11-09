@@ -7,7 +7,7 @@
 A modular fair-sequencing layer that replaces the trusted centralized sequencer
 with threshold cryptography + verifiable ordering proofs.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 
 
