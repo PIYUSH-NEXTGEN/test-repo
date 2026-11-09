@@ -10,7 +10,7 @@ with threshold cryptography + verifiable ordering proofs.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.79%2B-orange)](https://www.rust-lang.org)
 [![Tests](https://github.com/your-org/opensequencer/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/opensequencer/actions)
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://your-org.github.io/opensequencer)
+
 
 </div>
 
