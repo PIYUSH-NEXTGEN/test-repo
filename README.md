@@ -20,11 +20,6 @@ submission gets a public tracking reference and a visible status.
 - Role-based access control separating reporters, staff, and admins
 - Secure photo uploads linked to reports
 
-## Getting started
-
-1. Clone the repo and install dependencies (`npm install`).
-2. Copy `.env.example` to `.env` and fill in database + storage credentials.
-3. Run migrations, then start the dev server (`npm run dev`).
 
 ## Project structure
 
@@ -33,7 +28,3 @@ submission gets a public tracking reference and a visible status.
 - `/lib` — auth helpers, RBAC guards, storage client
 - `/prisma` (or equivalent) — schema and migrations
 
-## Notes
-
-Photos are stored in object storage rather than the database; only URLs and
-metadata are persisted alongside each report.
