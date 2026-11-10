@@ -1,74 +1,39 @@
-<div align="center">
+# Public Issue Reporting & Tracking Platform
 
-# 🗳️ OpenSequencer
+A civic platform where residents report local problems — damaged roads, broken
+streetlights, garbage buildup — with photos and locations, then track whether
+anything is actually being done. Reports stop disappearing into inboxes: every
+submission gets a public tracking reference and a visible status.
 
-**Censorship-resistant, transparent transaction ordering for rollups.**
+## Who it's for
 
-A modular fair-sequencing layer that replaces the trusted centralized sequencer
-with threshold cryptography + verifiable ordering proofs.
+- **Residents** — file reports, attach evidence, follow progress.
+- **Staff** — triage assigned issues and update their status.
+- **Administrators** — assign reports to teams, manage users, oversee resolution.
 
+## Features
 
+- Report submission with title, description, photo, and location (map pin or address)
+- Status lifecycle per report: `received` → `in-progress` → `resolved` / `rejected`
+- Public tracking reference so anyone can check progress without logging in
+- Admin dashboard for assignment, filtering, and bulk status updates
+- Role-based access control separating reporters, staff, and admins
+- Secure photo uploads linked to reports
 
+## Getting started
 
+1. Clone the repo and install dependencies (`npm install`).
+2. Copy `.env.example` to `.env` and fill in database + storage credentials.
+3. Run migrations, then start the dev server (`npm run dev`).
 
-</div>
+## Project structure
 
+- `/api` — endpoints for reports, auth, uploads, and status updates
+- `/components` — UI for the reporting form, tracker, and admin dashboard
+- `/lib` — auth helpers, RBAC guards, storage client
+- `/prisma` (or equivalent) — schema and migrations
 
-## The Problem
+## Notes
 
-Most L2 rollups run a **single centralized sequencer**. That one entity decides:
-
-1. **Which transactions get included** — and which are silently dropped (censorship).
-2. **In what order** — enabling front-running, sandwiching, and back-running (MEV).
-3. **When batches are published** — creating opaque timing advantages.
-
-This is not theoretical. A sequencer can:
-
-- Censor a specific address or DApp without detection by outsiders.
-- Insert its own arbitrage before user transactions.
-- Withhold a batch to extract private order flow value.
-
-Existing mitigations each solve part of the problem: encrypted mempools hide
-transaction contents, priority auctions price access, and decentralized sequencer
-networks rotate the role — but almost all still rely on *some* actor you must trust
-to order honestly, and none give users a **cryptographic proof that ordering was fair**.
-
-## What OpenSequencer Does
-
-OpenSequencer is a drop-in sequencing layer that provides three properties
-simultaneously:
-
-| Property | Mechanism |
-|---|---|
-| 🔒 **Unreadable until ordered** | Threshold encryption (DKG committee) — no single party can open a mempool tx |
-| ⏱️ **Order-fair** | Slot-based batching with verifiable VRF shuffling inside each slot window |
-| 📜 **Provably honest** | Every batch ships with a SNARK proving the operator followed the protocol |
-
-If the sequencer deviates — reorders outside the allowed window, drops a
-submitted tx, or decrypts early — it either **cannot produce a valid proof**
-or is caught by watchers with a **slashing-eligible commitment**.
-
-### Design goals
-
-- **No new trust assumptions beyond an honest majority in a small committee** (t-of-n threshold crypto).
-- **Sub-second latency overhead** vs. a plain sequencer (< 2 slots).
-- **Rollup-agnostic**: OP Stack, Arbitrum Orbit, zkSync Era, Polygon CDK, or standalone.
-
-## How It Works
-
-```text
- User                    Gateway           Threshold Committee        Sequencer         L1
-  │                         │                      │                     │              │
-  │── EIP-712 signed tx ───▶│                      │                     │              │
-  │                         │── encrypt(slot t) ───▶│                     │              │
-  │◀── receipt w/ commit ────│                      │                     │              │
-  │                         │                      │                     │              │
-  │                         │   ...slot t closes... │                     │              │
-  │                         │                      │── VRF shuffle seed ─▶│              │
-  │                         │                      │                     │── order txs  │
-  │                         │                      │── joint decrypt ────▶│   by (slot,  │
-  │                         │                      │                     │   shuffle idx)│
-  │                         │                      │                     │── build batch│
-  │                         │                      │                     │── gen SNARK ─▶│
-  │                         │                      │                     │              │── post
-  │                         │                      │                     │              │   batch+proof
+Photos are stored in object storage rather than the database; only URLs and
+metadata are persisted alongside each report.
